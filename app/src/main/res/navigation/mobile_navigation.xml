@@ -12,14 +12,38 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.cse3310.myfitnesstracker.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
+        android:id="@+id/nav_activity"
+        android:name="com.cse3310.myfitnesstracker.ui.activity.ActivityFragment"
+        android:label="@string/menu_activity"
+        tools:layout="@layout/fragment_activity" />
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.cse3310.myfitnesstracker.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_progress"
+        android:name="com.cse3310.myfitnesstracker.ui.progress.ProgressFragment"
+        android:label="@string/menu_progress"
+        tools:layout="@layout/fragment_progress" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.cse3310.myfitnesstracker.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/nav_trainer"
+        android:name="com.cse3310.myfitnesstracker.ui.trainer.TrainerFragment"
+        android:label="@string/menu_trainer"
+        tools:layout="@layout/fragment_trainer" />
+    <fragment
+        android:id="@+id/nav_subscription"
+        android:name="com.cse3310.myfitnesstracker.ui.subscription.SubscriptionFragment"
+        android:label="@string/menu_subscription"
+        tools:layout="@layout/fragment_subscription" />
+    <fragment
+        android:id="@+id/nav_exercise"
+        android:name="com.cse3310.myfitnesstracker.ui.exercise.ExerciseFragment"
+        android:label="@string/menu_exercise"
+        tools:layout="@layout/fragment_exercise" />
+    <fragment
+        android:id="@+id/nav_goals"
+        android:name="com.cse3310.myfitnesstracker.ui.goals.GoalsFragment"
+        android:label="@string/menu_goals"
+        tools:layout="@layout/fragment_goals" />
 </navigation>
