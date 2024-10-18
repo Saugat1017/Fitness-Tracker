@@ -12,17 +12,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFitnessTracker"
         tools:targetApi="31">
+
+        <!-- LoginActivity launches first -->
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true"
+            android:label="Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- MainActivity with drawer layout -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MyFitnessTracker.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/Theme.MyFitnessTracker.NoActionBar" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <!-- Additional metadata -->
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="your-library-name" />
     </application>
 
 </manifest>

@@ -6,56 +6,48 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText newUsername, newPassword;
-    private Button registerButton;
+    private EditText username, password;
+    private Button loginButton, registerLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_login);
 
-        newUsername = findViewById(R.id.new_username);
-        newPassword = findViewById(R.id.new_password);
-        registerButton = findViewById(R.id.register_button);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        loginButton = findViewById(R.id.login_button);
+        registerLink = findViewById(R.id.register_link);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user = newUsername.getText().toString().trim();
-                String pass = newPassword.getText().toString().trim();
+                String user = username.getText().toString().trim();
+                String pass = password.getText().toString().trim();
 
-                if (!user.isEmpty() && !pass.isEmpty()) {
-                    if (registerUser(user, pass)) {
-                        Toast.makeText(RegisterActivity.this, "User registered: " + user, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
-                    }
+                if (user.equals("admin") && pass.equals("admin")) {
+                    // Login successful, navigate to MainActivity
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish(); // Close the login activity
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                    // Invalid login
+                        Toast.makeText(RegisterActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
 
-    private boolean registerUser(String username, String password) {
-        try {
-            FileOutputStream fos = openFileOutput("users.txt", MODE_APPEND);
-            OutputStreamWriter writer = new OutputStreamWriter(fos);
-            writer.write(username + "," + password + "\n");
-            writer.close();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+        registerLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Implement registration navigation if needed
+                Toast.makeText(RegisterActivity.this, "Registration functionality coming soon!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
