@@ -13,10 +13,9 @@
         android:theme="@style/Theme.MyFitnessTracker"
         tools:targetApi="31">
 
-
         <!-- LoginActivity launches first -->
         <activity
-            android:name=".RegisterActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -24,6 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- RegisterActivity for user registration -->
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true"
+            android:label="@string/app_name" />
 
         <!-- MainActivity with drawer layout -->
         <activity
