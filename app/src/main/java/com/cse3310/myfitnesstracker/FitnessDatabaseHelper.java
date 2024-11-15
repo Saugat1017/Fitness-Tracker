@@ -1,15 +1,14 @@
 package com.cse3310.myfitnesstracker;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.List;
 import java.util.ArrayList;
-
 
 public class FitnessDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "FitnessTracker.db";
@@ -33,8 +32,6 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_WORKOUT_STEPS = "steps";
     private static final String COLUMN_WORKOUT_CALORIES = "calories";
     private static final String COLUMN_WORKOUT_DATE = "date";
-
-
 
     public FitnessDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -117,5 +114,27 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return workoutList;
+    }
+
+    public boolean checkUserExists(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_USER + " WHERE " + COLUMN_USER_NAME + " =?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{username});
+
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        db.close();
+        return exists;
+    }
+
+    public boolean checkLoginCredentials(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_USER + " WHERE " + COLUMN_USER_NAME + " =? AND " + COLUMN_USER_PASSWORD + " =?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{username, password});
+
+        boolean loginSuccess = cursor.moveToFirst();
+        cursor.close();
+        db.close();
+        return loginSuccess;
     }
 }

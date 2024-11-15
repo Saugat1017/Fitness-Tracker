@@ -9,21 +9,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText regFirstName, regLastName, regEmail, regUsername, regPassword;
     private Button registerButton, backButton;
+    private FitnessDatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        db = new FitnessDatabaseHelper(this);
 
         regFirstName = findViewById(R.id.first_name);
         regLastName = findViewById(R.id.last_name);
@@ -47,40 +44,27 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (user.length() < 6 || !user.matches("^[a-zA-Z0-9]+$")) {
+                if (user.length() < 6 ||!user.matches("^[a-zA-Z0-9]+$")) {
                     Toast.makeText(RegisterActivity.this, "Username must be at least 6 alphanumeric characters", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (pass.length() < 8 || !pass.matches(".*\\d.*") || !pass.matches(".*[A-Z].*")) {
+                if (pass.length() < 8 ||!pass.matches(".*\\d.*") ||!pass.matches(".*[A-Z].*")) {
                     Toast.makeText(RegisterActivity.this, "Password must be at least 8 characters, include a number, and an uppercase letter", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                try (FileInputStream fis = openFileInput("users.txt");
-                     BufferedReader reader = new BufferedReader(new InputStreamReader(fis))) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        String[] credentials = line.split(",");
-                        if (credentials.length >= 2 && credentials[0].equals(user)) {
-                            Toast.makeText(RegisterActivity.this, "User ID already exists.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                // Check if user already exists in the database
+                if (db.checkUserExists(user)) {
+                    Toast.makeText(RegisterActivity.this, "User ID already exists.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
-                try (FileOutputStream fos = openFileOutput("users.txt", MODE_APPEND);
-                     OutputStreamWriter writer = new OutputStreamWriter(fos)) {
-                    writer.append(user).append(",").append(pass).append(",").append(email).append("\n");
-                    Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                    finish();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(RegisterActivity.this, "Registration Error!", Toast.LENGTH_SHORT).show();
-                }
+                // Add user to the database
+                db.addUser(user, pass, email);
+                Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
             }
         });
 

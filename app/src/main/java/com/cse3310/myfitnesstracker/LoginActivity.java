@@ -9,19 +9,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-
 public class LoginActivity extends AppCompatActivity {
 
     private EditText username, password;
     private Button loginButton, registerLink, forgotPasswordLink;
+    private FitnessDatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        db = new FitnessDatabaseHelper(this);
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
@@ -40,28 +39,12 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                try (FileInputStream fis = openFileInput("users.txt");
-                     BufferedReader reader = new BufferedReader(new InputStreamReader(fis))) {
-                    String line;
-                    boolean loginSuccess = false;
-                    while ((line = reader.readLine()) != null) {
-                        String[] credentials = line.split(",");
-                        if (credentials.length >= 2 && credentials[0].equals(user) && credentials[1].equals(pass)) {
-                            loginSuccess = true;
-                            break;
-                        }
-                    }
-
-                    if (loginSuccess) {
-                        Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Invalid User ID or Password!", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
+                if (db.checkLoginCredentials(user, pass)) {
+                    Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Invalid User ID or Password!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
