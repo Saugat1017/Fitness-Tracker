@@ -30,6 +30,11 @@
             android:exported="true"
             android:label="@string/app_name" />
 
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="true"
+            android:label="@string/app_name" />
+
         <!-- MainActivity with drawer layout -->
         <activity
             android:name=".MainActivity"
