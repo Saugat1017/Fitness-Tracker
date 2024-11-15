@@ -36,11 +36,13 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .setAnchorView(R.id.fab).show();
+                // Open the notification dialog
+                com.cse3310.myfitnesstracker.ui.comms.Notifications notifications =
+                        new com.cse3310.myfitnesstracker.ui.comms.Notifications(MainActivity.this);
+                notifications.showNotificationDialog();
             }
         });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
