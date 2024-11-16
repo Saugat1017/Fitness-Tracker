@@ -14,12 +14,19 @@ public class LoginActivity extends AppCompatActivity {
     private EditText username, password;
     private Button loginButton, registerLink, forgotPasswordLink;
     private FitnessDatabaseHelper db;
+    private static final boolean isAdmin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
+        if(!isAdmin)
+            setContentView(R.layout.activity_login);
+        else
+        {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
         db = new FitnessDatabaseHelper(this);
 
         username = findViewById(R.id.username);

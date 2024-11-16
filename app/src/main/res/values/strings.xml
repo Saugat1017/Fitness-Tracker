@@ -15,4 +15,6 @@
     <string name="menu_exercise">Exercise</string>
     <string name="menu_trainer">Trainer</string>
     <string name="menu_subscription">Subscription</string>
+    <string name="enter_goal">Enter Goal</string>
+    <string name="add_goal">Add Goal</string>
 </resources>
