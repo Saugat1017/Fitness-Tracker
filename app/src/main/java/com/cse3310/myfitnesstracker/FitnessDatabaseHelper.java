@@ -162,6 +162,14 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
             return usrName;
     }
 
+    public String getEmail()
+    {
+        if(!userInstantiated)
+            return null;
+        else
+            return usrEmail;
+    }
+
     public int getGoalCmplt()
     {
         if(!userInstantiated)
@@ -288,7 +296,15 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
         return usrMap;
     }
 
-
+    public void logout()
+    {
+        userInstantiated = false;
+        usrId = -1;
+        usrName = null;
+        usrEmail = null;
+        usrGoalCmplt = -1;
+        usrGoalTotal = -1;
+    }
 
     public boolean checkUserExists(String username) {
         SQLiteDatabase db = this.getReadableDatabase();

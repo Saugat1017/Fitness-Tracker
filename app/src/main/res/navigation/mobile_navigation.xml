@@ -46,4 +46,10 @@
         android:name="com.cse3310.myfitnesstracker.ui.goals.GoalsFragment"
         android:label="@string/menu_goals"
         tools:layout="@layout/fragment_goals" />
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.cse3310.myfitnesstracker.ui.logout.LogoutFragment"
+        android:label="@string/menu_logout"
+        tools:layout="@layout/fragment_logout" />
 </navigation>

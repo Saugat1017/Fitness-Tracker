@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cse3310.myfitnesstracker.ui.goals.MyCheckBox;
+import com.google.android.material.navigation.NavigationView;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -36,9 +38,6 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
         db = Singleton.getInstance().getDb(this);
-
-
-        db.getUsers();
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
@@ -62,6 +61,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
+
+
                 } else {
                     Toast.makeText(LoginActivity.this, "Invalid User ID or Password!", Toast.LENGTH_SHORT).show();
                 }

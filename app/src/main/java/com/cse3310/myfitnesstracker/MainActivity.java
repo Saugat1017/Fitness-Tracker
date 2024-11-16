@@ -2,10 +2,13 @@ package com.cse3310.myfitnesstracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.cse3310.myfitnesstracker.ui.home.HomeFragment;
 import com.google.android.material.snackbar.Snackbar;
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private FitnessDatabaseHelper db = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,24 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+        db = Singleton.getInstance().getDb(this);
+
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView usrNameView = headerView.findViewById(R.id.userNameText);
+        TextView usrEmailView = headerView.findViewById(R.id.userEmailText);
+
+
+        if(db.isUserInstantiated())
+        {
+            String name = db.getName();
+            String email = db.getEmail();
+            usrNameView.setText(db.getName());
+            usrEmailView.setText(db.getEmail());
+
+        }
 
     }
     @Override

@@ -12,6 +12,7 @@
     <string name="menu_activity">Activity</string>
     <string name="menu_progress">Progress</string>
     <string name="menu_goals">Goals</string>
+    <string name="menu_logout">Logout</string>
     <string name="menu_exercise">Exercise</string>
     <string name="menu_trainer">Trainer</string>
     <string name="menu_subscription">Subscription</string>
