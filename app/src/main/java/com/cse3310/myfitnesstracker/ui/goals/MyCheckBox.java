@@ -5,11 +5,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
+import com.cse3310.myfitnesstracker.FitnessDatabaseHelper;
 import com.cse3310.myfitnesstracker.R;
 
 public class MyCheckBox extends androidx.appcompat.widget.AppCompatCheckBox {
 
-    public MyCheckBox(Context context, GoalsFragment parent, LinearLayout layout) {
+    public MyCheckBox(Context context, GoalsFragment parent, LinearLayout layout, FitnessDatabaseHelper db) {
         super(context);
 
 
@@ -29,7 +30,8 @@ public class MyCheckBox extends androidx.appcompat.widget.AppCompatCheckBox {
                     public void onAnimationEnd(Animation animation) {
                         // Remove the view after the animation ends
                         layout.removeView(MyCheckBox.this);
-                        parent.finishGoals(); // Update goals count after removing the view
+                        parent.finishGoals();
+                        db.removeGoal(db.getUserID(), MyCheckBox.this.getText().toString()); // Update goals count after removing the view
                     }
 
                     @Override

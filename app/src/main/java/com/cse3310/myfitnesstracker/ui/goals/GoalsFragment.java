@@ -14,8 +14,14 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.cse3310.myfitnesstracker.FitnessDatabaseHelper;
 import com.cse3310.myfitnesstracker.R;
+import com.cse3310.myfitnesstracker.Singleton;
 import com.cse3310.myfitnesstracker.databinding.FragmentGoalsBinding;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GoalsFragment extends Fragment {
 
@@ -26,6 +32,10 @@ public class GoalsFragment extends Fragment {
     private TextView progressPct;
     private ProgressBar pBar;
     private FragmentGoalsBinding binding;
+    private FitnessDatabaseHelper db = null;
+
+    private HashMap<Integer, ArrayList<String>> goalMap = null;
+    private ArrayList<String> myGoals = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGoalsBinding.inflate(inflater, container, false);
@@ -35,6 +45,36 @@ public class GoalsFragment extends Fragment {
         LinearLayout goalsContainer = root.findViewById(R.id.goalsLayout); // Layout for goals
         progressPct = root.findViewById(R.id.progressPct);
         pBar = root.findViewById(R.id.progressBar);
+
+        db = Singleton.getInstance().getDb(getContext());
+
+        if(db.isUserInstantiated()) {
+            goalsCompleted = db.getGoalCmplt();
+            totalGoals = db.getUsrGoalTotal();
+
+            goalMap = db.getGoalData();
+
+            myGoals = goalMap.get(db.getUserID());
+
+            if(myGoals != null)
+            {
+                numGoals = myGoals.size();
+
+                for (String goal : myGoals) {
+                    MyCheckBox checkBox = new MyCheckBox(getContext(),this, goalsContainer, db);
+                    checkBox.setText(goal);
+                    goalsContainer.addView(checkBox);
+                }
+            }
+            if(goalsCompleted != 0 && totalGoals != 0)
+            {
+                progressPct.setText(new StringBuilder().append(((int) ((float)goalsCompleted / totalGoals * 100))).append("%").toString());
+                pBar.setProgress((int) ((float)goalsCompleted / totalGoals * 100));
+            }
+
+        }
+
+
         addButton.setOnClickListener(v -> {
             AlertDialog.Builder inputBuilder = new AlertDialog.Builder(getContext());
             inputBuilder.setTitle("Add Goal");
@@ -50,15 +90,17 @@ public class GoalsFragment extends Fragment {
                     Toast.makeText(getContext(), "Too many goals!", Toast.LENGTH_SHORT).show();
                 } else {
                     // Add goal as a CheckBox
-                    MyCheckBox checkBox = new MyCheckBox(getContext(),this, goalsContainer);
+                    MyCheckBox checkBox = new MyCheckBox(getContext(),this, goalsContainer, db);
                     checkBox.setText(userInput);
 
-
                     goalsContainer.addView(checkBox);
+
+                    db.addGoal(db.getUserID(), userInput);
+
                     totalGoals++;
                     numGoals++;
 
-                    progressPct.setText(new StringBuilder().append((int) goalsCompleted / totalGoals * 100).append("%").toString());
+                    progressPct.setText(new StringBuilder().append(((int) ((float)goalsCompleted / totalGoals * 100))).append("%").toString());
                     pBar.setProgress((int) ((float)goalsCompleted / totalGoals * 100));
 
                     Toast.makeText(getContext(), "Goal Added...", Toast.LENGTH_SHORT).show();
@@ -75,6 +117,9 @@ public class GoalsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+        db.updateUser(db.getUserID(), goalsCompleted, totalGoals);
+
         binding = null;
     }
 

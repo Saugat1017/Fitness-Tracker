@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 // Add user to the database
-                db.addUser(user, pass, email);
+                db.addUser(user, pass, email, 0,0);
                 Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 finish();
