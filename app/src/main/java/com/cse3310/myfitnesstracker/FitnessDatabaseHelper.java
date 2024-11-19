@@ -20,8 +20,9 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_USER = "user_data";
     private static final String TABLE_WORKOUT = "workout_history";
     private static final String TABLE_GOAL = "goal_data";
+
     // User table columns
-    private static final String COLUMN_USER_ID = "id";
+    private static final String COLUMN_USER_ID = "user_id";
     private static final String COLUMN_USER_NAME = "name";
     private static final String COLUMN_USER_PASSWORD = "password";
     private static final String COLUMN_USER_EMAIL = "email";
@@ -29,12 +30,12 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_GOALTOTAL = "gtotal";
 
     // Goal table columns
-    private static final String COLUMN_GOAL_ID = "id";
+    private static final String COLUMN_GOAL_ID = "goal_id";
     private static final String COLUMN_GOAL_USERID = "user_id";
     private static final String COLUMN_GOAL_TITLE = "title";
 
     // Workout table columns
-    private static final String COLUMN_WORKOUT_ID = "id";
+    private static final String COLUMN_WORKOUT_ID = "workout_id";
     private static final String COLUMN_WORKOUT_USERID = "user_id";
     private static final String COLUMN_WORKOUT_ACTIVITY = "activity";
     private static final String COLUMN_WORKOUT_DURATION = "duration";
@@ -135,6 +136,7 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_GOAL_USERID, userID);
         values.put(COLUMN_GOAL_TITLE, title);
+
 
         db.insert(TABLE_GOAL, null, values);
         db.close();

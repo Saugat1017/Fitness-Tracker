@@ -71,7 +71,6 @@ public class GoalsFragment extends Fragment {
                 progressPct.setText(new StringBuilder().append(((int) ((float)goalsCompleted / totalGoals * 100))).append("%").toString());
                 pBar.setProgress((int) ((float)goalsCompleted / totalGoals * 100));
             }
-
         }
 
 
@@ -116,10 +115,8 @@ public class GoalsFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-
         db.updateUser(db.getUserID(), goalsCompleted, totalGoals);
-
+        super.onDestroyView();
         binding = null;
     }
 
