@@ -40,9 +40,9 @@ public class TrainerFragment extends Fragment {
 
         // Prepare sample trainer data
         trainerList = new ArrayList<>();
-        trainerList.add(new Trainer("Roman Doe", 30, R.drawable.trainer1, 4.5f));
-        trainerList.add(new Trainer("Jake Smith", 28, R.drawable.trainer2, 4.8f));
-        trainerList.add(new Trainer("Mike Brown", 58, R.drawable.trainer3, 4.2f));
+        trainerList.add(new Trainer("Roman Doe", 30, R.drawable.trainer1, 4.7f));
+        trainerList.add(new Trainer("Jake Smith", 28, R.drawable.trainer2, 4.0f));
+        trainerList.add(new Trainer("Mike Brown", 58, R.drawable.trainer3, 4.9f));
 
         // Set up the RecyclerView with GridLayout
         TrainerAdapter adapter = new TrainerAdapter(trainerList);
