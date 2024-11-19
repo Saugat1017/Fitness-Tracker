@@ -4,34 +4,48 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.cse3310.myfitnesstracker.databinding.FragmentExerciseBinding;
+import com.cse3310.myfitnesstracker.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExerciseFragment extends Fragment {
 
-    private FragmentExerciseBinding binding;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        ExerciseViewModel exerciseViewModel =
-                new ViewModelProvider(this).get(ExerciseViewModel.class);
-
-        binding = FragmentExerciseBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textExercise;
-        exerciseViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
+    private RecyclerView recyclerView;
+    private ExerciseAdapter exerciseAdapter;
+    private List<Exercise> exerciseList;
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_exercise, container, false);
+
+        // Initialize RecyclerView
+        recyclerView = view.findViewById(R.id.recycler_view_exercises);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Populate data
+        exerciseList = new ArrayList<>();
+        exerciseList.add(new Exercise("Push-Ups", "A basic upper body exercise.", R.drawable.pushup));
+        exerciseList.add(new Exercise("Squats", "Strengthens legs and glutes.", R.drawable.squat));
+        exerciseList.add(new Exercise("Plank", "Core strengthening exercise.", R.drawable.plank));
+
+        // Set Adapter
+        exerciseAdapter = new ExerciseAdapter(exerciseList);
+        recyclerView.setAdapter(exerciseAdapter);
+
+        // Floating Action Button for adding new exercises (optional)
+        FloatingActionButton fab = view.findViewById(R.id.fab_add_exercise);
+        fab.setOnClickListener(v -> Toast.makeText(getContext(), "Add New Exercise (Feature Pending)", Toast.LENGTH_SHORT).show());
+
+        return view;
     }
 }

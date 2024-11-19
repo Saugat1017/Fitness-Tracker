@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="8dp">
+    app:cardElevation="6dp"
+    app:cardCornerRadius="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,30 +14,37 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Trainer Photo -->
         <ImageView
             android:id="@+id/trainer_photo"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/trainer_placeholder" />
+            android:src="@drawable/trainer_placeholder"
+            android:contentDescription="@string/trainer_photo_placeholder" />
 
+        <!-- Trainer Name -->
         <TextView
             android:id="@+id/trainer_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Trainer Name"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
 
+        <!-- Trainer Age -->
         <TextView
             android:id="@+id/trainer_age"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Age: 30"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="@android:color/darker_gray" />
 
+        <!-- Trainer Rating -->
         <RatingBar
             android:id="@+id/trainer_rating"
             android:layout_width="wrap_content"
@@ -45,6 +53,6 @@
             android:numStars="5"
             android:stepSize="0.5"
             android:rating="4.5" />
-
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

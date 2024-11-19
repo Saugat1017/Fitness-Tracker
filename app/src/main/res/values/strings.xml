@@ -18,4 +18,6 @@
     <string name="menu_subscription">Subscription</string>
     <string name="enter_goal">Enter Goal</string>
     <string name="add_goal">Add Goal</string>
+    <string name="trainer_photo_placeholder">Trainer photo placeholder</string>
+
 </resources>
