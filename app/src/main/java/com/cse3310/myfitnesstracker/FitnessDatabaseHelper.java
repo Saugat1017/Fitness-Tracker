@@ -29,6 +29,8 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_EMAIL = "email";
     private static final String COLUMN_USER_GOALCMPLT = "gcmplt";
     private static final String COLUMN_USER_GOALTOTAL = "gtotal";
+    private static final String COLUMN_USER_IS_SUBSCRIBED = "is_subscribed";
+
 
     // Goal table columns
     private static final String COLUMN_GOAL_ID = "goal_id";
@@ -50,7 +52,7 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
     private String usrName;
     private int usrGoalCmplt;
     private int usrGoalTotal;
-
+    private int usrIsSubscribed; // 1 is subscribed, 0 is not subscribed
     private boolean userInstantiated = false;
 
     public FitnessDatabaseHelper(Context context) {
@@ -66,7 +68,8 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_USER_PASSWORD + " TEXT, "
                 + COLUMN_USER_EMAIL + " TEXT, "
                 + COLUMN_USER_GOALCMPLT + " INTEGER, "
-                + COLUMN_USER_GOALTOTAL + " INTEGER)";
+                + COLUMN_USER_GOALTOTAL + " INTEGER, "
+                + COLUMN_USER_IS_SUBSCRIBED + " INTEGER)";
 
         db.execSQL(CREATE_USER_TABLE);
 
@@ -104,6 +107,7 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_USER_EMAIL, email);
         values.put(COLUMN_USER_GOALCMPLT, gcmplt);
         values.put(COLUMN_USER_GOALTOTAL, gtotal);
+        values.put(COLUMN_USER_IS_SUBSCRIBED, 0); //always starts as 0
 
         db.insert(TABLE_USER, null, values);
         db.close();
@@ -114,6 +118,15 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_GOALCMPLT, gcmplt);
         values.put(COLUMN_USER_GOALTOTAL, gtotal);
+        db.update(TABLE_USER, values, COLUMN_USER_ID + " = ?", new String[]{String.valueOf(userID)});
+        db.close();
+    }
+
+    public void updateSubscription(int userID, int subscribed) {
+        usrIsSubscribed = subscribed;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_IS_SUBSCRIBED, subscribed);
         db.update(TABLE_USER, values, COLUMN_USER_ID + " = ?", new String[]{String.valueOf(userID)});
         db.close();
     }
@@ -186,6 +199,14 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
             return -1;
         else
             return usrGoalTotal;
+    }
+
+    public int getIsSubscribed()
+    {
+        if(!userInstantiated)
+            return 0;
+        else
+            return usrIsSubscribed;
     }
 
     public boolean isUserInstantiated()
@@ -335,6 +356,7 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
             usrEmail = cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL));
             usrGoalCmplt = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_GOALCMPLT));
             usrGoalTotal = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_GOALTOTAL));
+            usrIsSubscribed = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_IS_SUBSCRIBED));
 
             userInstantiated = true;
         }
