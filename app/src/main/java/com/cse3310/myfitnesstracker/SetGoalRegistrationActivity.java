@@ -1,5 +1,7 @@
 package com.cse3310.myfitnesstracker;
 
+import static java.security.AccessController.getContext;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Spinner;
+import com.cse3310.myfitnesstracker.FitnessDatabaseHelper;
+import com.cse3310.myfitnesstracker.R;
+import com.cse3310.myfitnesstracker.Singleton;
+import com.cse3310.myfitnesstracker.databinding.FragmentGoalsBinding;
 
 import com.cse3310.myfitnesstracker.ui.goals.MyCheckBox;
 import com.google.android.material.navigation.NavigationView;
@@ -33,9 +39,10 @@ public class SetGoalRegistrationActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_add_goal);
-
+        // Initialize variables
         addGoalButton = findViewById(R.id.addGoalButton);
         goalNumber = findViewById(R.id.goalNumber);
+        db = FitnessDatabaseHelper.getInstance(this);
 
         // Set up drop down menu for selecting goal
         goalSelectorDropDown = findViewById(R.id.goalSelectorDropDown);
@@ -59,7 +66,9 @@ public class SetGoalRegistrationActivity extends AppCompatActivity{
                 Toast.makeText(SetGoalRegistrationActivity.this, "Goal: " + goal, Toast.LENGTH_SHORT).show();
 
                 // Add to database
-
+                db.updateUser(db.getUserID(), 0, 1);
+                startActivity(new Intent(SetGoalRegistrationActivity.this, MainActivity.class));
+                finish();
             }
 
         });

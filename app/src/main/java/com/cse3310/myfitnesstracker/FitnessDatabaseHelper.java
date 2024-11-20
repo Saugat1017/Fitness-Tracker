@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class FitnessDatabaseHelper extends SQLiteOpenHelper {
+    private static FitnessDatabaseHelper instance;
     private static final String DATABASE_NAME = "FitnessTracker.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -136,7 +137,6 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_GOAL_USERID, userID);
         values.put(COLUMN_GOAL_TITLE, title);
-
 
         db.insert(TABLE_GOAL, null, values);
         db.close();
@@ -343,5 +343,12 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return loginSuccess;
+    }
+
+    public static synchronized FitnessDatabaseHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new FitnessDatabaseHelper(context.getApplicationContext());
+        }
+        return instance;
     }
 }
