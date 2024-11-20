@@ -1,5 +1,6 @@
 package com.cse3310.myfitnesstracker.ui.subscription;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,11 @@ public class SubscriptionFragment extends Fragment {
         final TextView textView = binding.textSubscription;
         subscriptionViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
+    }
+
+    public void launchPaymentActivity(View v) {
+        //Intent i = new Intent(getActivity(), PaymentActivity.class);
+        //startActivity(i);
     }
 
     @Override

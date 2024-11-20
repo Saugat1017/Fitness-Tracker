@@ -20,6 +20,22 @@
     <string name="add_goal">Add Goal</string>
     <string name="trainer_photo_placeholder">Trainer photo placeholder</string>
 
+    <!--Strings for subscription fragment-->
+    <string name="subscription_title">Get in the best shape of your life with premium!</string>
+    <string name="subscription_perk_1">Add free experience</string>
+    <string name="subscription_perk_2">Special training videos</string>
+    <string name="subscription_perk_3">Personal trainer instructions</string>
+    <string name="subscription_subtitle">Plans</string>
+    <string name="subscription_subtitle_annual">Annual</string>
+    <string name="subscription_subtitle_quarterly">Quarterly</string>
+    <string name="subscription_subtitle_monthly">Monthly</string>
+    <string name="subscription_annual_price"><b>$6.00 USD</b> / month</string>
+    <string name="subscription_quarterly_price"><b>$9.00 USD</b> / month</string>
+    <string name="subscription_monthly_price"><b>$12.00 USD</b> / month</string>
+    <string name="subscription_annual_savings">SAVE 50%</string>
+    <string name="subscription_quarterly_savings">SAVE 25%</string>
+    <string name="subscription_button">Select</string>
+
     <!--These are the options for the drop down goal selector in registration-->
     <string-array name="goalDropDownSelections">
         <item>Calories Burned</item>
