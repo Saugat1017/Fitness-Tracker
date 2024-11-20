@@ -20,4 +20,11 @@
     <string name="add_goal">Add Goal</string>
     <string name="trainer_photo_placeholder">Trainer photo placeholder</string>
 
+    <!--These are the options for the drop down goal selector in registration-->
+    <string-array name="goalDropDownSelections">
+        <item>Calories Burned</item>
+        <item>Steps</item>
+        <item>Weight goal</item>
+        <item>Miles run</item>
+    </string-array>
 </resources>
