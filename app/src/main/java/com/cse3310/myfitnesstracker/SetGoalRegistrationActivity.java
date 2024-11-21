@@ -67,6 +67,7 @@ public class SetGoalRegistrationActivity extends AppCompatActivity{
 
                 // Add to database
                 db.updateUser(db.getUserID(), 0, 1);
+                db.addGoal(db.getUserID(), goal);
                 startActivity(new Intent(SetGoalRegistrationActivity.this, MainActivity.class));
                 finish();
             }

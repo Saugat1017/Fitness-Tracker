@@ -83,7 +83,8 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox3">
+        app:layout_constraintTop_toBottomOf="@+id/checkBox3"
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/subscription_subtitle"
@@ -273,14 +274,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout_subscribed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_width="410dp"
+        android:layout_height="223dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox3">
+        app:layout_constraintTop_toBottomOf="@+id/checkBox3"
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/textView3"
@@ -295,20 +298,71 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button_unsubscribe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="6dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="6dp"
-            android:text="Unsubscribe"
+            android:id="@+id/button_unsubscribeAreYouSure3"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="32dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp"
+            android:text="Last chance! Unsubscribe"
             android:textSize="16sp"
+            android:theme="@style/ThemeOverlay.Material3.DynamicColors.Dark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.474"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_unsubscribe"
+            android:layout_width="77dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp"
+            android:text="Unsubscribe"
+            android:textSize="8sp"
+            android:theme="@style/ThemeOverlay.Material3.DynamicColors.Dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <Button
+            android:id="@+id/button_unsubscribeAreYouSure"
+            android:layout_width="112dp"
+            android:layout_height="32dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp"
+            android:text="Are you sure?"
+            android:textSize="10sp"
             android:theme="@style/ThemeOverlay.Material3.DynamicColors.Dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/button_unsubscribe"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <Button
+            android:id="@+id/button_unsubscribeAreYouSure2"
+            android:layout_width="214dp"
+            android:layout_height="32dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp"
+            android:text="Are you sure you're sure?"
+            android:textSize="12sp"
+            android:theme="@style/ThemeOverlay.Material3.DynamicColors.Dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_unsubscribeAreYouSure" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

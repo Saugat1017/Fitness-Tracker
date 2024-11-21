@@ -27,6 +27,9 @@ public class SubscriptionFragment extends Fragment {
     private ConstraintLayout UnsubscribedConstraintLayout;
     private ConstraintLayout SubscibedConstraintLayout;
     private FitnessDatabaseHelper db = null;
+    private Button unsubscibeButton1;
+    private Button unsubscibeButton2;
+    private Button unsubscibeButton3;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +48,13 @@ public class SubscriptionFragment extends Fragment {
         Button subscribeButton2 = root.findViewById(R.id.button_select1);
         Button subscribeButton3 = root.findViewById(R.id.button_select2);
         Button unsubscibeButton = root.findViewById(R.id.button_unsubscribe);
+        unsubscibeButton1 = root.findViewById(R.id.button_unsubscribeAreYouSure);
+        unsubscibeButton2 = root.findViewById(R.id.button_unsubscribeAreYouSure2);
+        unsubscibeButton3 = root.findViewById(R.id.button_unsubscribeAreYouSure3);
+
+        unsubscibeButton1.setVisibility(View.GONE);
+        unsubscibeButton2.setVisibility(View.GONE);
+        unsubscibeButton3.setVisibility(View.GONE);
 
         updateConstraintLayout(db.getIsSubscribed());
 
@@ -55,6 +65,18 @@ public class SubscriptionFragment extends Fragment {
         subscribeButton3.setOnClickListener(subscribeClickListener);
 
         unsubscibeButton.setOnClickListener(v -> {
+            unsubscibeButton1.setVisibility(View.VISIBLE);
+        });
+
+        unsubscibeButton1.setOnClickListener(v -> {
+            unsubscibeButton2.setVisibility(View.VISIBLE);
+        });
+
+        unsubscibeButton2.setOnClickListener(v -> {
+            unsubscibeButton3.setVisibility(View.VISIBLE);
+        });
+
+        unsubscibeButton3.setOnClickListener(v -> {
             Toast.makeText(getContext(), "Unsubscribed!", Toast.LENGTH_SHORT).show();
             updateConstraintLayout(0);
             db.updateSubscription(db.getUserID(), 0);
@@ -63,10 +85,17 @@ public class SubscriptionFragment extends Fragment {
         return root;
     }
 
+    public void hideUnsubscribeMessages(){
+        unsubscibeButton1.setVisibility(View.GONE);
+        unsubscibeButton2.setVisibility(View.GONE);
+        unsubscibeButton3.setVisibility(View.GONE);
+    }
+
     public void updateConstraintLayout(int subscribed) {
         if (subscribed == 1) {
             UnsubscribedConstraintLayout.setVisibility(View.GONE);
             SubscibedConstraintLayout.setVisibility(View.VISIBLE);
+            hideUnsubscribeMessages();
         } else {
             SubscibedConstraintLayout.setVisibility(View.GONE);
             UnsubscribedConstraintLayout.setVisibility(View.VISIBLE);
@@ -104,6 +133,12 @@ public class SubscriptionFragment extends Fragment {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onDestroyView() {
+        hideUnsubscribeMessages();
+        super.onDestroyView();
     }
 
     private boolean validatePaymentDetails(String cardNumber, String cvv, String firstName, String lastName, String zipCode) {
