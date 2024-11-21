@@ -111,6 +111,9 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(TABLE_USER, null, values);
         db.close();
+
+        usrGoalCmplt = gcmplt;
+        usrGoalTotal = gtotal;
     }
 
     public void updateUser(int userID, int gcmplt, int gtotal) {
@@ -120,6 +123,8 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_USER_GOALTOTAL, gtotal);
         db.update(TABLE_USER, values, COLUMN_USER_ID + " = ?", new String[]{String.valueOf(userID)});
         db.close();
+        usrGoalCmplt = gcmplt;
+        usrGoalTotal = gtotal;
     }
 
     public void updateSubscription(int userID, int subscribed) {
