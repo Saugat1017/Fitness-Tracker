@@ -102,6 +102,8 @@ public class GoalsFragment extends Fragment {
                     progressPct.setText(new StringBuilder().append(((int) ((float)goalsCompleted / totalGoals * 100))).append("%").toString());
                     pBar.setProgress((int) ((float)goalsCompleted / totalGoals * 100));
 
+                    db.updateUser(db.getUserID(), goalsCompleted, totalGoals);
+
                     Toast.makeText(getContext(), "Goal Added...", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -126,6 +128,6 @@ public class GoalsFragment extends Fragment {
         goalsCompleted++;
         pBar.setProgress((int) ((float)goalsCompleted / totalGoals * 100));
         progressPct.setText(new StringBuilder().append(((int) ((float)goalsCompleted / totalGoals * 100))).append("%").toString());
-
+        db.updateUser(db.getUserID(), goalsCompleted, totalGoals);
     }
 }
