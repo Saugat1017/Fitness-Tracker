@@ -46,6 +46,7 @@ public class SettingsFragment extends Fragment {
         db = Singleton.getInstance().getDb(getContext());
 
 
+
         clearButton.setOnClickListener(v -> {
 
             db.resetDatabase();

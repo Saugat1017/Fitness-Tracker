@@ -1,9 +1,12 @@
 package com.cse3310.myfitnesstracker.ui.exercise;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cse3310.myfitnesstracker.R;
+import com.cse3310.myfitnesstracker.Singleton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -26,6 +30,23 @@ public class ExerciseFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if(Singleton.getInstance().getDb(getContext()).getIsSubscribed() == 0)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            View dialogView = inflater.inflate(R.layout.popup_ad, null);
+            builder.setView(dialogView);
+
+            ImageView btn = dialogView.findViewById(R.id.btn_close);
+
+            AlertDialog adDialog = builder.create();
+
+            adDialog.show();
+
+            btn.setOnClickListener(v -> {
+                adDialog.hide();
+            });
+        }
+
         View view = inflater.inflate(R.layout.fragment_exercise, container, false);
 
         // Initialize RecyclerView

@@ -1,15 +1,19 @@
 package com.cse3310.myfitnesstracker.ui.home;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.cse3310.myfitnesstracker.R;
+import com.cse3310.myfitnesstracker.Singleton;
 import com.cse3310.myfitnesstracker.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -23,6 +27,7 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
