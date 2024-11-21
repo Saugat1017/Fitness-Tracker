@@ -9,10 +9,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 
+import com.cse3310.myfitnesstracker.Singleton;
 import com.cse3310.myfitnesstracker.databinding.FragmentTrainerBinding;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +24,7 @@ import com.cse3310.myfitnesstracker.ui.trainer.TrainerViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TrainerFragment extends Fragment {
 
@@ -35,6 +38,8 @@ public class TrainerFragment extends Fragment {
 
         binding = FragmentTrainerBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+
 
         trainerRecyclerView = root.findViewById(R.id.trainer_recycler_view);
 

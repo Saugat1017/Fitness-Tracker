@@ -299,6 +299,8 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
                 @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL));
                 @SuppressLint("Range") int gcmplt = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_GOALCMPLT));
                 @SuppressLint("Range") int gtotal = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_GOALTOTAL));
+                @SuppressLint("Range") int issub = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_IS_SUBSCRIBED));
+
                 if(usrMap.containsKey(userID))
                 {
                     Objects.requireNonNull(usrMap.get(userID)).add(name);
@@ -313,6 +315,7 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
                     usrList.add(email);
                     usrList.add(String.valueOf(gcmplt));
                     usrList.add(String.valueOf(gtotal));
+                    usrList.add(String.valueOf(issub));
                     usrMap.put(userID, usrList);
                 }
 
@@ -352,7 +355,6 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, new String[]{username, password});
 
         boolean loginSuccess = cursor.moveToFirst();
-
 
         if (loginSuccess)
         {
