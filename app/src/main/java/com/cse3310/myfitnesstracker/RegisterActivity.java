@@ -20,8 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        db = new FitnessDatabaseHelper(this);
-        //db = FitnessDatabaseHelper.getInstance(this);
+        db = Singleton.getInstance().getDb(this);
 
         regFirstName = findViewById(R.id.first_name);
         regLastName = findViewById(R.id.last_name);

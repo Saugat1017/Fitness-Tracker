@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout;
@@ -106,37 +108,46 @@ public class GoalsFragment extends Fragment {
             AlertDialog.Builder inputBuilder = new AlertDialog.Builder(getContext());
             inputBuilder.setTitle("Add Goal");
 
-            EditText input = new EditText(getContext());
-            inputBuilder.setView(input);
+            View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_goal, null); // Create a custom layout for the dialog
+            inputBuilder.setView(dialogView);
+
+            EditText input = dialogView.findViewById(R.id.goal_input); // Get the EditText from the custom layout
+            Spinner goalTypeSpinner = dialogView.findViewById(R.id.goal_type_spinner); // Get the Spinner from the custom layout
+
+            // Set up the Spinner
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                    R.array.goalDropDownSelections, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            goalTypeSpinner.setAdapter(adapter);
+
 
             inputBuilder.setPositiveButton("Add", (dialog, which) -> {
                 String userInput = input.getText().toString().trim();
+                String goalType = goalTypeSpinner.getSelectedItem().toString();
                 if (userInput.isEmpty()) {
                     Toast.makeText(getContext(), "Input cannot be empty!", Toast.LENGTH_SHORT).show();
                 } else if (numGoals >= MAX_GOALS) {
                     Toast.makeText(getContext(), "Too many goals!", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Add goal as a CheckBox
-                    MyCheckBox checkBox = new MyCheckBox(getContext(),this, goalsContainer, db);
-                    checkBox.setText(userInput);
+                    MyCheckBox checkBox = new MyCheckBox(getContext(), this, goalsContainer, db);
+                    checkBox.setText(new StringBuilder().append(goalType).append(": ").append(userInput).toString());
 
                     goalsContainer.addView(checkBox);
 
-                    db.addGoal(db.getUserID(), userInput);
+                    db.addGoal(db.getUserID(), goalType + ": " + userInput);
 
                     totalGoals++;
                     numGoals++;
 
-                    progressPct.setText(new StringBuilder().append(((int) ((float)goalsCompleted / totalGoals * 100))).append("%").toString());
-                    pBar.setProgress((int) ((float)goalsCompleted / totalGoals * 100));
+                    progressPct.setText(new StringBuilder().append(((int) ((float) goalsCompleted / totalGoals * 100))).append("%").toString());
+                    pBar.setProgress((int) ((float) goalsCompleted / totalGoals * 100));
 
                     db.updateUser(db.getUserID(), goalsCompleted, totalGoals);
 
                     Toast.makeText(getContext(), "Goal Added...", Toast.LENGTH_SHORT).show();
                 }
-            });
+            }).setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
-            inputBuilder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
             inputBuilder.show();
         });
 

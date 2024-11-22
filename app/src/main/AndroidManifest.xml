@@ -13,6 +13,12 @@
         android:theme="@style/Theme.MyFitnessTracker"
         tools:targetApi="31">
 
+        <activity
+            android:name=".SetGoalRegistrationActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyFitnessTracker.NoActionBar" />
+
         <!-- LoginActivity launches first -->
         <activity
             android:name=".LoginActivity"
@@ -41,12 +47,6 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyFitnessTracker.NoActionBar" />
-        <activity
-            android:name=".SetGoalRegistrationActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.MyFitnessTracker.NoActionBar" />
-
 
         <!-- Additional metadata -->
         <meta-data

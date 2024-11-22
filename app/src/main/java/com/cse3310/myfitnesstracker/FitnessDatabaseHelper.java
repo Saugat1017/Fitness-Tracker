@@ -114,6 +114,8 @@ public class FitnessDatabaseHelper extends SQLiteOpenHelper {
 
         usrGoalCmplt = gcmplt;
         usrGoalTotal = gtotal;
+
+        checkLoginCredentials(name,password);
     }
 
     public void updateUser(int userID, int gcmplt, int gtotal) {

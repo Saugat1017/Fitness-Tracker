@@ -42,7 +42,7 @@ public class SetGoalRegistrationActivity extends AppCompatActivity{
         // Initialize variables
         addGoalButton = findViewById(R.id.addGoalButton);
         goalNumber = findViewById(R.id.goalNumber);
-        db = FitnessDatabaseHelper.getInstance(this);
+        db = Singleton.getInstance().getDb(this);
 
         // Set up drop down menu for selecting goal
         goalSelectorDropDown = findViewById(R.id.goalSelectorDropDown);
@@ -67,7 +67,7 @@ public class SetGoalRegistrationActivity extends AppCompatActivity{
 
                 // Add to database
                 db.updateUser(db.getUserID(), 0, 1);
-                db.addGoal(db.getUserID(), goal);
+                db.addGoal(db.getUserID(), goal + ": " + goalNum);
                 startActivity(new Intent(SetGoalRegistrationActivity.this, MainActivity.class));
                 finish();
             }
