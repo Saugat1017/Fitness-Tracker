@@ -25,8 +25,7 @@ import com.cse3310.myfitnesstracker.databinding.FragmentGoalsBinding;
 import com.cse3310.myfitnesstracker.ui.goals.MyCheckBox;
 import com.google.android.material.navigation.NavigationView;
 
-
-public class SetGoalRegistrationActivity extends AppCompatActivity{
+public class SetGoalRegistrationActivity extends AppCompatActivity {
 
     Spinner goalSelectorDropDown;
     Button addGoalButton;
@@ -57,17 +56,19 @@ public class SetGoalRegistrationActivity extends AppCompatActivity{
                 try {
                     // Convert the text to an integer
                     goalNum = Integer.parseInt(String.valueOf(goalNumber.getText()));
-                    Toast.makeText(SetGoalRegistrationActivity.this, "The number is: " + goalNum, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetGoalRegistrationActivity.this, "The number is: " + goalNum, Toast.LENGTH_SHORT)
+                            .show();
                 } catch (NumberFormatException e) {
                     // Handle the case where the input is not a valid number
-                    Toast.makeText(SetGoalRegistrationActivity.this, "Please enter a valid number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetGoalRegistrationActivity.this, "Please enter a valid number", Toast.LENGTH_SHORT)
+                            .show();
                 }
                 goal = goalSelectorDropDown.getSelectedItem().toString();
                 Toast.makeText(SetGoalRegistrationActivity.this, "Goal: " + goal, Toast.LENGTH_SHORT).show();
 
                 // Add to database
                 db.updateUser(db.getUserID(), 0, 1);
-                db.addGoal(db.getUserID(), goal + ": " + goalNum);
+                db.addGoal(db.getUserID(), goal + ": " + goalNum, "Registration goal", (double) goalNum, "general", "");
                 startActivity(new Intent(SetGoalRegistrationActivity.this, MainActivity.class));
                 finish();
             }
@@ -75,12 +76,12 @@ public class SetGoalRegistrationActivity extends AppCompatActivity{
         });
 
         // Implement back button
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+        // backButton.setOnClickListener(new View.OnClickListener() {
+        // @Override
+        // public void onClick(View v) {
+        // finish();
+        // }
+        // });
     }
 
 }

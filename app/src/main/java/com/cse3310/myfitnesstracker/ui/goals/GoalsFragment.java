@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-
 import com.cse3310.myfitnesstracker.FitnessDatabaseHelper;
 import com.cse3310.myfitnesstracker.R;
 import com.cse3310.myfitnesstracker.Singleton;
@@ -52,7 +51,7 @@ public class GoalsFragment extends Fragment {
 
         db = Singleton.getInstance().getDb(getContext());
 
-        if(db.isUserInstantiated()) {
+        if (db.isUserInstantiated()) {
             goalsCompleted = db.getGoalCmplt();
             totalGoals = db.getUsrGoalTotal();
 
@@ -60,24 +59,22 @@ public class GoalsFragment extends Fragment {
 
             myGoals = goalMap.get(db.getUserID());
 
-            if(myGoals != null)
-            {
+            if (myGoals != null) {
                 numGoals = myGoals.size();
 
                 for (String goal : myGoals) {
-                    MyCheckBox checkBox = new MyCheckBox(getContext(),this, goalsContainer, db);
+                    MyCheckBox checkBox = new MyCheckBox(getContext(), this, goalsContainer, db);
                     checkBox.setText(goal);
                     goalsContainer.addView(checkBox);
                 }
             }
-            if(goalsCompleted != 0 && totalGoals != 0)
-            {
-                progressPct.setText(new StringBuilder().append(((int) ((float)goalsCompleted / totalGoals * 100))).append("%").toString());
-                pBar.setProgress((int) ((float)goalsCompleted / totalGoals * 100));
+            if (goalsCompleted != 0 && totalGoals != 0) {
+                progressPct.setText(new StringBuilder().append(((int) ((float) goalsCompleted / totalGoals * 100)))
+                        .append("%").toString());
+                pBar.setProgress((int) ((float) goalsCompleted / totalGoals * 100));
             }
         }
-        if(db.getIsSubscribed() == 0)
-        {
+        if (db.getIsSubscribed() == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             View dialogView = inflater.inflate(R.layout.popup_ad, null);
             builder.setView(dialogView);
@@ -93,24 +90,23 @@ public class GoalsFragment extends Fragment {
             });
         }
 
-
-
         addButton.setOnClickListener(v -> {
             AlertDialog.Builder inputBuilder = new AlertDialog.Builder(getContext());
             inputBuilder.setTitle("Add Goal");
 
-            View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_goal, null); // Create a custom layout for the dialog
+            View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_goal, null); // Create a custom layout for
+                                                                                           // the dialog
             inputBuilder.setView(dialogView);
 
             EditText input = dialogView.findViewById(R.id.goal_input); // Get the EditText from the custom layout
-            Spinner goalTypeSpinner = dialogView.findViewById(R.id.goal_type_spinner); // Get the Spinner from the custom layout
+            Spinner goalTypeSpinner = dialogView.findViewById(R.id.goal_type_spinner); // Get the Spinner from the
+                                                                                       // custom layout
 
             // Set up the Spinner
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                     R.array.goalDropDownSelections, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             goalTypeSpinner.setAdapter(adapter);
-
 
             inputBuilder.setPositiveButton("Add", (dialog, which) -> {
                 String userInput = input.getText().toString().trim();
@@ -125,12 +121,13 @@ public class GoalsFragment extends Fragment {
 
                     goalsContainer.addView(checkBox);
 
-                    db.addGoal(db.getUserID(), goalType + ": " + userInput);
+                    db.addGoal(db.getUserID(), goalType + ": " + userInput, "User defined goal", 1.0, "general", "");
 
                     totalGoals++;
                     numGoals++;
 
-                    progressPct.setText(new StringBuilder().append(((int) ((float) goalsCompleted / totalGoals * 100))).append("%").toString());
+                    progressPct.setText(new StringBuilder().append(((int) ((float) goalsCompleted / totalGoals * 100)))
+                            .append("%").toString());
                     pBar.setProgress((int) ((float) goalsCompleted / totalGoals * 100));
 
                     db.updateUser(db.getUserID(), goalsCompleted, totalGoals);
@@ -152,12 +149,12 @@ public class GoalsFragment extends Fragment {
         binding = null;
     }
 
-    public void finishGoals()
-    {
+    public void finishGoals() {
         numGoals--;
         goalsCompleted++;
-        pBar.setProgress((int) ((float)goalsCompleted / totalGoals * 100));
-        progressPct.setText(new StringBuilder().append(((int) ((float)goalsCompleted / totalGoals * 100))).append("%").toString());
+        pBar.setProgress((int) ((float) goalsCompleted / totalGoals * 100));
+        progressPct.setText(
+                new StringBuilder().append(((int) ((float) goalsCompleted / totalGoals * 100))).append("%").toString());
         db.updateUser(db.getUserID(), goalsCompleted, totalGoals);
     }
 }

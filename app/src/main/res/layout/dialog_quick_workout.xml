@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Choose Workout Type"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary" />
+
+    <Button
+        android:id="@+id/btn_walking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="Walking"
+        android:textSize="16sp"
+        android:backgroundTint="@color/green_500" />
+
+    <Button
+        android:id="@+id/btn_running"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="Running"
+        android:textSize="16sp"
+        android:backgroundTint="@color/blue_500" />
+
+    <Button
+        android:id="@+id/btn_cycling"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cycling"
+        android:textSize="16sp"
+        android:backgroundTint="@color/orange_500" />
+
+</LinearLayout> 

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cse3310.myfitnesstracker.ui.home.HomeFragment;
+import com.cse3310.myfitnesstracker.utils.NotificationHelper;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -36,13 +37,16 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Initialize notification channels
+        NotificationHelper.createNotificationChannels(this);
+
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Open the notification dialog
-                com.cse3310.myfitnesstracker.ui.comms.Notifications notifications =
-                        new com.cse3310.myfitnesstracker.ui.comms.Notifications(MainActivity.this);
+                com.cse3310.myfitnesstracker.ui.comms.Notifications notifications = new com.cse3310.myfitnesstracker.ui.comms.Notifications(
+                        MainActivity.this);
                 notifications.showNotificationDialog();
             }
         });
@@ -52,13 +56,13 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_progress, R.id.nav_activity, R.id.nav_goals, R.id.nav_trainer, R.id.nav_exercise, R.id.nav_subscription)
+                R.id.nav_home, R.id.nav_progress, R.id.nav_activity, R.id.nav_goals, R.id.nav_trainer,
+                R.id.nav_exercise, R.id.nav_subscription)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
 
         db = Singleton.getInstance().getDb(this);
 
@@ -67,9 +71,7 @@ public class MainActivity extends AppCompatActivity {
         TextView usrNameView = headerView.findViewById(R.id.userNameText);
         TextView usrEmailView = headerView.findViewById(R.id.userEmailText);
 
-
-        if(db.isUserInstantiated())
-        {
+        if (db.isUserInstantiated()) {
             String name = db.getName();
             String email = db.getEmail();
             usrNameView.setText(db.getName());
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -90,12 +93,14 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
